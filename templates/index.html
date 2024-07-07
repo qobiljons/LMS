@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Left Column for Welcome Words -->
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <img src="https://i.pinimg.com/564x/2b/68/93/2b6893c65b0216bb888b47c0906c395f.jpg" class="card-img-top" alt="Main Introduction">
+                <div class="card-body">
+                    <h5 class="card-title">Welcome to the Learning Management System (LMS) Dashboard!</h5>
+                    <a href="#" class="btn btn-primary bg-info">Learn More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column for YouTube, Wikipedia, Calculator, Enjoyments -->
+        <div class="col-lg-8">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-sticky-note fa-3x mb-3 text-info"></i>
+                                <h5 class="card-title">Notes</h5>
+                                <p class="card-text">Content related to notes.</p>
+                                <a href="#" class="btn btn-primary bg-info">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fab fa-wikipedia-w fa-3x mb-3 text-info"></i>
+                            <h5 class="card-title">Tasks</h5>
+                            <p class="card-text">School tasks.</p>
+                            <a href="#" class="btn btn-primary bg-info">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-calculator fa-3x mb-3 text-info"></i>
+                            <h5 class="card-title">Books</h5>
+                            <p class="card-text">Search books that suits to your taste</p>
+                            <a href="#" class="btn btn-primary bg-info">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-music fa-3x mb-3 text-info"></i>
+                            <h5 class="card-title">Enjoyments</h5>
+                            <p class="card-text">Content related to entertainment.</p>
+                            <a href="#" class="btn btn-primary bg-info">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Row for Notes, Tasks, Calculator, Books -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fab fa-wikipedia-w fa-3x mb-3 text-info"></i>
+                    <h5 class="card-title">Wikipedia</h5>
+                    <p class="card-text">Content related to Wikipedia.</p>
+                    <a href="#" class="btn btn-primary bg-info">Explore</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-tasks fa-3x mb-3 text-info"></i>
+                    <h5 class="card-title">Tasks</h5>
+                    <p class="card-text">Manage your tasks efficiently.</p>
+                    <a href="#" class="btn btn-primary bg-info">Explore</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-calculator fa-3x mb-3 text-info"></i>
+                    <h5 class="card-title">Calculator</h5>
+                    <p class="card-text">Useful tools for calculations.</p>
+                    <a href="#" class="btn btn-primary bg-info">Explore</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-book fa-3x mb-3 text-info"></i>
+                    <h5 class="card-title">Books</h5>
+                    <p class="card-text">Explore educational books.</p>
+                    <a href="#" class="btn btn-primary bg-info">Explore</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
