@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}YouTube Search{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Search YouTube</h2>
+
+                    <!-- Search Form -->
+                    <form method="POST" class="mb-4">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control py-3" placeholder="Enter your search term..." aria-label="Search YouTube" aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary px-4">
+                                    <i class="fab fa-youtube mr-2"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Search Tips -->
+                    <p class="text-muted text-center">Pro Tip: Enter keywords related to your interests!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%for result in results%}
+    <p>{{result}}</p>
+{%endfor%}
+{% endblock %}

@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'crispy_bootstrap5',
     'lms',  
     'core'
 ]
@@ -140,3 +142,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Custom User 
 
 AUTH_USER_MODEL = 'core.CustomUser'
+
+#Crispy Forms
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

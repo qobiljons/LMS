@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Tasks</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Subject</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Due Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.subject }}</td>
+                <td>{{ task.title }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.due|date:"Y-m-d H:i" }}</td>
+                <td>
+                    {% if task.status == 'U' %}
+                    <a href="" class="btn btn-link text-success">
+                        <i class="fas fa-check"></i>
+                    </a>
+                    {% else %}
+                    Finished
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="" class="btn btn-link text-primary">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="{%url 'task_delete' pk=task.pk %}" class="btn btn-link text-danger">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Create Task Button -->
+    <div class="">
+        <a href="" class="btn btn-success">Create Task</a>
+    </div>
+</div>
+{% endblock %}
