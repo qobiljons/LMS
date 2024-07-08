@@ -75,23 +75,46 @@ def task_delete(request, pk):
     task.delete()
     return redirect(reverse('tasks'))
 
+
 def youtube(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = SearchForm(request.POST)
-        if form.is_valid():
-            search_query = form.cleaned_data["search_query"]
-            video = VideosSearch(search_query, limit=10) 
-            print(video.result())  # print the video results in the console
-            results = []
-            for video_result in video.result()["videos"]:
-                results.append(video_result)
-            print(results)
-            context = {
-                "results": results,
-                "search_query": search_query,
+        search_term = request.POST['search']
+        videos_search = VideosSearch(search_term, limit=25)
+        videos = videos_search.result()['result']
+        results = []
+
+        for video in videos:
+            video_info = {
+                'title': video['title'],
+                'published_time': video['publishedTime'],
+                'duration': video['duration'],
+                'views': video['viewCount']['short'],
+                'thumbnails': video['thumbnails'][0]['url'],
+                # 'description': video['descriptionSnipped'][0]["text"],
+                'channel_link': video['channel']['link'],
+                'channel_name': video['channel']['name'],
+                'channel_thumbnail': video['channel']['thumbnails'][0]['url'],
+                'link':video['link']
             }
-    form = SearchForm()
-    context = {
-        "form": form,
-    }
-    return render(request, 'youtube/youtube.html', context)
+            results.append(video_info)
+        return render(request, 'youtube/youtube.html', {'form': form, 'videos': results})
+    else:
+        form = SearchForm()
+        videos_search = VideosSearch("subjects", limit=25)
+        videos = videos_search.result()['result']
+        results = []
+    for video in videos:
+            video_info = {
+                'title': video['title'],
+                'published_time': video['publishedTime'],
+                'duration': video['duration'],
+                'views': video['viewCount']['short'],
+                'thumbnails': video['thumbnails'][0]['url'],
+                'channel_link': video['channel']['link'],
+                'channel_name': video['channel']['name'],
+                'channel_thumbnail': video['channel']['thumbnails'][0]['url'],
+                'link':video['link']
+            }
+            results.append(video_info)
+    return render(request, 'youtube/youtube.html', {'form': form, 'videos': results})

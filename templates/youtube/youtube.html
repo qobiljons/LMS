@@ -4,34 +4,101 @@
 {% block title %}YouTube Search{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h2 class="card-title text-center mb-4">Search YouTube</h2>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">YouTube Search</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                    <!-- Search Form -->
-                    <form method="POST" class="mb-4">
-                        {% csrf_token %}
-                        <div class="input-group">
-                            <input type="text" name="search" class="form-control py-3" placeholder="Enter your search term..." aria-label="Search YouTube" aria-describedby="button-addon2">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary px-4">
-                                    <i class="fab fa-youtube mr-2"></i> Search
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <!-- Search Tips -->
-                    <p class="text-muted text-center">Pro Tip: Enter keywords related to your interests!</p>
-                </div>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="form-inline my-2 my-lg-0 ml-auto" method="POST" action="{% url 'youtube' %}">
+                {% csrf_token %}
+                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Enter your search term..." aria-label="Search">
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">
+                    <i class="fab fa-youtube mr-2"></i> Search
+                </button>
+            </form>
         </div>
     </div>
+</nav>
+
+<div class="container mt-5 pt-5">
+    {% if videos %}
+        <h3 class="text-center">Search Results</h3>
+        <div class="row">
+            {% for video in videos %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ video.thumbnails }}" class="card-img-top" alt="{{ video.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ video.title }}</h5>
+                            <p class="card-text text-muted">
+                                <strong>Published:</strong> {{ video.published_time }}<br>
+                                <strong>Duration:</strong> {{ video.duration }}<br>
+                                <strong>Views:</strong> {{ video.views }}
+                            </p>
+                            <a href="{{ video.channel_link }}" target="_blank" class="d-flex align-items-center mt-2 mb-3">
+                                <img src="{{ video.channel_thumbnail }}" alt="{{ video.channel_name }}" class="rounded-circle mr-2" width="30">
+                                {{ video.channel_name }}
+                            </a>
+                            <a href="{{ video.link }}" class="btn btn-primary" target="_blank">Watch Video</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 </div>
-{%for result in results%}
-    <p>{{result}}</p>
-{%endfor%}
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.navbar {
+    z-index: 1000; /* Ensures navbar is above other content */
+}
+
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 0.9rem;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.mt-auto {
+    margin-top: auto;
+}
+
+</style>
 {% endblock %}
