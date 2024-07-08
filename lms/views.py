@@ -7,6 +7,7 @@ from django.urls import reverse_lazy, reverse
 from youtubesearchpython import VideosSearch
 import random
 import requests
+import wikipedia as wiki
 
 # Create your views here.
 
@@ -200,7 +201,28 @@ def dictionary(request):
     return render(request, 'dictionary/dictionary.html', {'form': form})
 
 
-# def wikipedia(request):
+def wikipedia(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        search_term = request.POST.get('search', '')
+        try:
+            page = wiki.page(search_term)
+            context = {
+                'form': form,
+                'title': page.title,
+                'content': page.content[:2000] + '...' if len(page.content) > 2000 else page.content,
+                'url': page.url,
+                'image': page.images[0] if page.images else None,
+            }
+            return render(request, "wikipedia/wikipedia.html", context=context)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+    
+        return render(request, "wikipedia/wikipedia.html", context=None)
+
+    form  = SearchForm()
+    return render(request, "wikipedia/wikipedia.html", {"form":form})
+
 
 
 def get_random_search():

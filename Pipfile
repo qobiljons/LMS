@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "*"
 youtube-search-python = "*"
+wikipedia = "*"
 
 [dev-packages]
 
