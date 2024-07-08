@@ -173,6 +173,36 @@ def books(request):
         else:
             return HttpResponse("Error fetching data from Google Books API.")
 
+def dictionary(request):
+    api = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+    if request.method == "POST":
+        form = SearchForm(request.POST)
+        search_term = request.POST['search']
+        dictionary_search = api + search_term
+        dictionary_data = requests.get(dictionary_search)
+        
+        if dictionary_data.status_code == 200:
+            word = dictionary_data.json()[0]
+            print(word)
+            result = {
+                    "word": word["word"],
+                    "phonetic": word["phonetic"],
+                    "audio": word["phonetics"][0]["audio"],
+                    "definition": word["meanings"][0]["definitions"][0]["definition"],
+                    "synonyms": word["meanings"][0]["definitions"][0]["synonyms"],
+                    "antonyms":  word["meanings"][0]["definitions"][0]["antonyms"]
+                }
+            
+            print(result)
+            return render(request, 'dictionary/dictionary.html', {'form': form, 'word': result})
+            
+    form = SearchForm()
+    return render(request, 'dictionary/dictionary.html', {'form': form})
+
+
+# def wikipedia(request):
+
+
 def get_random_search():
     random_keywords = ['music', 'technology', 'cooking', 'gaming', 'travel', 'all', 'art', 'song', 'cars', 'learning']
     return random.choice(random_keywords)   

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Dictionary Results{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Dictionary Search</h1>
+    <form class="form-inline my-2 my-lg-0 justify-content-center" method="POST" action="{% url 'dictionary' %}">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2 w-50" type="search" name="search" placeholder="Enter your search term..." aria-label="Search">
+        <button type="submit" class="btn btn-primary px-4">
+            <i class="fas fa-book mr-2"></i> Search
+        </button>
+    </form>
+    {% if word %}
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ word.word }}</h5>
+                        <p class="card-text"><strong>Phonetic:</strong> {{ word.phonetic }}</p>
+                        {% if word.audio %}
+                            <p class="card-text">
+                                <strong>Audio:</strong>
+                                <audio controls class="w-100">
+                                    <source src="{{ word.audio }}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </p>
+                        {% endif %}
+                        <p class="card-text"><strong>Definitions:</strong> {{ word.definition }}</p>
+                        <p class="card-text"><strong>Synonyms:</strong></p>
+                        <ul class="list-inline">
+                            {% for synonym in word.synonyms %}
+                                <li class="list-inline-item">
+                                    <span class="badge badge-info">{{ synonym }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <p class="card-text"><strong>Antonyms:</strong></p>
+                        <ul class="list-inline">
+                            {% for antonym in word.antonyms %}
+                                <li class="list-inline-item">
+                                    <span class="badge badge-secondary">{{ antonym }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p class="text-center mt-4">No results found.</p>
+    {% endif %}
+</div>
+{% endblock %}
