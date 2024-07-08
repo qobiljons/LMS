@@ -3,26 +3,28 @@
 
 {% block title %}YouTube Search{% endblock %}
 
-{% block content %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">YouTube Search</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+{%block navbar%}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
+        <div class="container">
+            <a class="navbar-brand" href="#">YouTube Search</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="form-inline my-2 my-lg-0 ml-auto" method="POST" action="{% url 'youtube' %}">
-                {% csrf_token %}
-                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Enter your search term..." aria-label="Search">
-                <button class="btn btn-primary my-2 my-sm-0" type="submit">
-                    <i class="fab fa-youtube mr-2"></i> Search
-                </button>
-            </form>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="form-inline my-2 my-lg-0 ml-auto" method="POST" action="{% url 'youtube' %}">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Enter your search term..." aria-label="Search">
+                    <button class="btn btn-primary my-2 my-sm-0" type="submit">
+                        <i class="fab fa-youtube mr-2"></i> Search
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+{%endblock%}
 
+{% block content %}
 <div class="container mt-5 pt-5">
     {% if videos %}
         <h3 class="text-center">Search Results</h3>

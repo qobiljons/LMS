@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Books Search{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"> Books Search</a>
+            <div class="ml-auto">
+                <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'books' %}">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Enter your search term..." aria-label="Search">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="fas fa-book mr-2"></i> Search
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    {% for book in books %}
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card h-100">
+                <div class="card-body d-flex">
+                    {% if book.image_link %}
+                    <img src="{{ book.image_link.thumbnail }}" class="card-img-left" alt="{{ book.title }}">
+                    {% else %}
+                    <div class="card-img-left text-center py-5">
+                        <i class="fas fa-book fa-4x text-muted"></i>
+                    </div>
+                    {% endif %}
+                    <div class="ml-3">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <p class="card-text">
+                            <strong>Authors:</strong> {{ book.authors|join:", " }}<br>
+                            <strong>Published Date:</strong> {{ book.published_date }}<br>
+                            {% if book.description %}
+                            <strong>Description:</strong><br>
+                            {{ book.description|truncatewords_html:50|safe }}
+                            {% endif %}
+                        </p>
+                        <a href="{{ book.preview_link }}" class="btn btn-primary" target="_blank">Preview Book</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+</div>
+{% endblock %}

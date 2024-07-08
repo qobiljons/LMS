@@ -60,7 +60,7 @@
 
         <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5">
-
+        {%block navbar%}
         <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
           <div class="container-fluid">
               <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -89,7 +89,8 @@
               </div>
           </div>
       </nav>
-      <div class="container mt-5">
+      {%endblock%}
+      <div class="container mt-5" style="max-width: 1200px;">
         {% block content %}
         {% endblock %}
        </div>

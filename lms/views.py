@@ -5,6 +5,8 @@ from .models import Notes, Tasks
 from .forms import NoteForm, TaskForm, SearchForm
 from django.urls import reverse_lazy, reverse
 from youtubesearchpython import VideosSearch
+import random
+import requests
 
 # Create your views here.
 
@@ -80,7 +82,7 @@ def youtube(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
         search_term = request.POST['search']
-        videos_search = VideosSearch(search_term, limit=25)
+        videos_search = VideosSearch(search_term, limit=random.randint(8,13))
         videos = videos_search.result()['result']
         results = []
 
@@ -101,7 +103,7 @@ def youtube(request):
         return render(request, 'youtube/youtube.html', {'form': form, 'videos': results})
     else:
         form = SearchForm()
-        videos_search = VideosSearch("subjects", limit=25)
+        videos_search = VideosSearch(get_random_search(), limit=25)
         videos = videos_search.result()['result']
         results = []
     for video in videos:
@@ -118,3 +120,59 @@ def youtube(request):
             }
             results.append(video_info)
     return render(request, 'youtube/youtube.html', {'form': form, 'videos': results})
+
+def books(request):
+    api = "https://www.googleapis.com/books/v1/volumes?q="
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        search_term = request.POST['search']
+        books_search = api + search_term
+        books_data = requests.get(books_search)
+        if books_data.status_code == 200:
+            try:
+                books = books_data.json()['items']
+                results = []
+                for book in books:
+                    book_info = {
+                        'title': book['volumeInfo'].get('title'),
+                        'authors': book['volumeInfo'].get('authors'),
+                        'published_date': book['volumeInfo'].get('publishedDate'),
+                        'description': book['volumeInfo'].get('description'),
+                        'image_link': book['volumeInfo'].get('imageLinks'),
+                        'preview_link': book['volumeInfo'].get('previewLink')
+                    }
+                    results.append(book_info)
+                    print(results)
+                return render(request, 'books/books.html', {"form": form, "books":results})
+            except KeyError:
+                return HttpResponse("Invalid response from Google Books API.")
+        else:
+            return HttpResponse("Error fetching data from Google Books API.")
+    else:
+        form = SearchForm()
+        books_search = api + get_random_search()
+        books_data = requests.get(books_search)
+        if books_data.status_code == 200:
+            try:
+                books = books_data.json()['items']
+                results = []
+                for book in books:
+                    book_info = {
+                        'title': book['volumeInfo'].get('title'),
+                        'authors': book['volumeInfo'].get('authors'),
+                        'published_date': book['volumeInfo'].get('publishedDate'),
+                        'description': book['volumeInfo'].get('description'),
+                        'image_link': book['volumeInfo'].get('imageLinks'),
+                        'preview_link': book['volumeInfo'].get('previewLink')
+                    }
+                    results.append(book_info)
+                    print(results)
+                return render(request, 'books/books.html', {"form": form, "books":results})
+            except KeyError:
+                return HttpResponse("Invalid response from Google Books API.")
+        else:
+            return HttpResponse("Error fetching data from Google Books API.")
+
+def get_random_search():
+    random_keywords = ['music', 'technology', 'cooking', 'gaming', 'travel', 'all', 'art', 'song', 'cars', 'learning']
+    return random.choice(random_keywords)   
