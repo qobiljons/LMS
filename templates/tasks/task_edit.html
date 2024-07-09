@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Edit Tasks{% endblock %}
+
+{% block content %}
+<div class="container-fluid d-flex justify-content-center vh-50">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5 class="card-title mb-4">Create Task</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <div class="col">
+                            {{ form.subject|as_crispy_field }}
+                        </div>
+
+                        <div class="col">
+                            {{ form.title|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {{ form.description|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col">
+                            {{ form.due|as_crispy_field }}
+                        </div>
+                        <div class="col">
+                            {{ form.status|as_crispy_field }}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block mt-4">Edit Task</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

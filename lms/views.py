@@ -11,8 +11,6 @@ import wikipedia as wiki
 
 # Create your views here.
 
-
-
 #Dashboard
 
 class HomePageView(TemplateView):
@@ -33,12 +31,24 @@ def notes(request):
         form = NoteForm()
     notes = Notes.objects.filter(author=request.user).order_by('-created_at')
     context = {'notes': notes, 'form': form}
-    return render(request, 'notes.html', context=context)
+    return render(request, 'notes/notes.html', context=context)
 
+def note_create(request):
+    if request.method == 'POST':
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            note = form.save(commit=False)
+            note.author = request.user
+            note.save()
+            return redirect(reverse('notes'))
+    else:
+        form = NoteForm()
+    context = {'form': form}
+    return render(request, 'notes/note_create.html', context=context)
 def note_details(request, pk):
     note = get_object_or_404(Notes, pk=pk)
     context = {'note': note}
-    return render(request, 'note_details.html', context=context)
+    return render(request, 'notes/note_details.html', context=context)
 
 
 def note_delete(request, pk):
@@ -55,7 +65,7 @@ def note_edit(request, pk):
             form.save()
             return redirect(reverse('note_details', args=[pk]))
     context = {'form': form}
-    return render(request, 'note_edit.html', context=context)
+    return render(request, 'notes/note_edit.html', context=context)
 
 
 def tasks(request):
@@ -72,6 +82,28 @@ def tasks(request):
     context = {'tasks': tasks, 'form': form}
     return render(request, 'tasks/tasks.html', context=context)
 
+def task_create(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.author = request.user
+            form.save()
+            return redirect(reverse('tasks'))
+    else:
+        form = TaskForm()
+    return render(request, 'tasks/task_create.html', {'form': form})
+
+def task_edit(request, pk):
+    task = get_object_or_404(Tasks, pk=pk)
+    form = TaskForm(instance=task)
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('tasks'))
+    context = {'form': form}
+    return render(request, 'tasks/task_edit.html', context=context)
 
 def task_delete(request, pk):
     task = get_object_or_404(Tasks, pk=pk)
@@ -210,7 +242,7 @@ def wikipedia(request):
             context = {
                 'form': form,
                 'title': page.title,
-                'content': page.content[:2000] + '...' if len(page.content) > 2000 else page.content,
+                'content': page.content[:1000] + '...' if len(page.content) > 2000 else page.content,
                 'url': page.url,
                 'image': page.images[0] if page.images else None,
             }
@@ -228,3 +260,5 @@ def wikipedia(request):
 def get_random_search():
     random_keywords = ['music', 'technology', 'cooking', 'gaming', 'travel', 'all', 'art', 'song', 'cars', 'learning']
     return random.choice(random_keywords)   
+
+

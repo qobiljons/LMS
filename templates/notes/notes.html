@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Notes{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h5 class="mb-4">List of Notes</h5>
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            {% if notes %}
+                {% for note in notes %}
+                <div class="card note-item mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ note.title }}</h6>
+                        <p class="card-text">{{ note.content|truncatewords_html:10 }}</p>
+                        <p class="card-text"><small class="text-muted">Created: {{ note.created_at|date:"Y-m-d" }}</small></p>
+                        <a href="{% url 'note_details' pk=note.pk %}" class="btn btn-sm btn-primary">View Details</a>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="card note-item mb-3 border-primary shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">No notes found.</p>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="card note-item mb-3 border-primary shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">No notes found.</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-12">
+            <a href="{% url 'note_create' %}" class="btn btn-success">Create Note</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
