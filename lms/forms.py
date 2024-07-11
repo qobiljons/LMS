@@ -24,3 +24,10 @@ class TaskForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     search_query = forms.CharField(label='', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter search query'}))
+
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(label='Name', max_length=100)
+    email = forms.EmailField(label='Email')
+    message = forms.CharField(label='Message', widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))

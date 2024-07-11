@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, DeleteView
 from .models import Notes, Tasks
-from .forms import NoteForm, TaskForm, SearchForm
+from .forms import NoteForm, TaskForm, SearchForm, ContactForm
 from django.urls import reverse_lazy, reverse
 from youtubesearchpython import VideosSearch
 import random
@@ -260,5 +260,21 @@ def wikipedia(request):
 def get_random_search():
     random_keywords = ['music', 'technology', 'cooking', 'gaming', 'travel', 'all', 'art', 'song', 'cars', 'learning']
     return random.choice(random_keywords)   
+
+
+
+def contacts(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            send_email(name = form.cleaned_data["name"], email=form.cleaned_data["email"], message=form.cleaned_data["message"] )
+        else:
+            return HttpResponse("Invalid Form!")
+    form = ContactForm()
+    return render(request, "contacts.html", context={"form":form})
+ 
+
+def send_email(name, email, message):
+    print(f"Sending {message} to {name} with {email}")
 
 

@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.HomePageView.as_view(), name='dashboard'),
+    path('contacts/', views.contacts, name="contacts"), 
     path('notes/', views.notes, name='notes'), 
     path('notes/create/', views.note_create, name='note_create'),
     path('notes/<int:pk>', views.note_details, name='note_details'),
@@ -16,4 +17,5 @@ urlpatterns = [
     path('books/', views.books, name='books'),
     path('dictionary/', views.dictionary, name='dictionary'),
     path('wikipedia/', views.wikipedia, name="wikipedia"),
+
 ]
