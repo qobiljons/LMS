@@ -39,7 +39,7 @@
             <a href="{%url 'notes'%}"><span class="fa-solid fa-note-sticky"></span> Notes</a>
           </li>
           <li>
-            <a href="#"><span class="fa fa-user"></span> {{user}}</a>
+            <a href="{%url 'profile' user.username%} "><span class="fa fa-user"></span> {{user}}</a>
           </li>
         </ul>
 

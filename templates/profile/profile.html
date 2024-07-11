@@ -1,0 +1,59 @@
+<!-- profile.html -->
+
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Profile</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            {% if profile.profile_picture %}
+                            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="max-width: 150px;">
+                            {% else %}
+                            <div class="text-center mb-3">
+                                <i class="fas fa-user-circle fa-7x text-secondary"></i>
+                            </div>
+                            {% endif %}
+                            <h4>{{ profile.first_name }} {{ profile.last_name }}</h4>
+                            <p class="text-muted">{{ profile.username }}</p>
+                            <hr>
+                            <p class="mb-0"><i class="far fa-envelope"></i> {{ profile.email }}</p>
+                            <p><i class="fas fa-briefcase"></i> {{ profile.bio }}</p>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card mb-3">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">Bio</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>{{ profile.bio }}</p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">Contact Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p><i class="fas fa-envelope"></i> {{ profile.email }}</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Address: {{profile.address}}</p>
+                                    <p><i class="fas fa-phone"></i> Phone: {{profile.phone}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <a href="{% url 'profile_edit' profile.username %}" class="btn btn-outline-primary btn-sm">Edit Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <div class="bg-info text-white text-center p-3 mb-4 rounded">
+        <h2>Edit Profile</h2>
+      </div>
+      <form method="post" class="shadow p-4 rounded">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            {{ form.first_name|as_crispy_field }}
+          </div>
+          <div class="col-md-4 mb-3">
+            {{ form.last_name|as_crispy_field }}
+          </div>
+          <div class="col-md-4 mb-3">
+            {{ form.email|as_crispy_field }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            {{ form.bio|as_crispy_field }}
+          </div>
+          <div class="col-md-4 mb-3">
+            {{ form.address|as_crispy_field }}
+          </div>
+          <div class="col-md-4 mb-3">
+            {{ form.phone|as_crispy_field }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            {{ form.username|as_crispy_field }}
+          </div>
+        </div>
+        <div class="d-grid mt-3">
+          <button type="submit" class="btn btn-success btn-lg">Save</button>
+          <a href="{% url 'profile' user.username %}" class="btn btn-secondary btn-lg ml-3">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
