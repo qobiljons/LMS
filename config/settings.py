@@ -145,5 +145,11 @@ AUTH_USER_MODEL = 'core.CustomUser'
 
 #Crispy Forms
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'

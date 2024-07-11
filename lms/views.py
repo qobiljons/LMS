@@ -1,17 +1,19 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, DeleteView
-from .models import Notes, Tasks
-from .forms import NoteForm, TaskForm, SearchForm, ContactForm
-from django.urls import reverse_lazy, reverse
-from youtubesearchpython import VideosSearch
 import random
 import requests
 import wikipedia as wiki
+from youtubesearchpython import VideosSearch
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, DeleteView
+from django.urls import reverse_lazy, reverse
+from django.contrib.auth.decorators import login_required
+from .models import Notes, Tasks
+from .forms import NoteForm, TaskForm, SearchForm, ContactForm
 
 # Create your views here.
 
 #Dashboard
+
 
 class HomePageView(TemplateView):
     template_name = 'index.html'
@@ -19,6 +21,7 @@ class HomePageView(TemplateView):
 
 #Notes App Views
 
+@login_required
 def notes(request):
     if request.method == 'POST':
         form = NoteForm(request.POST)
@@ -33,6 +36,7 @@ def notes(request):
     context = {'notes': notes, 'form': form}
     return render(request, 'notes/notes.html', context=context)
 
+@login_required
 def note_create(request):
     if request.method == 'POST':
         form = NoteForm(request.POST)
@@ -45,17 +49,20 @@ def note_create(request):
         form = NoteForm()
     context = {'form': form}
     return render(request, 'notes/note_create.html', context=context)
+
+@login_required
 def note_details(request, pk):
     note = get_object_or_404(Notes, pk=pk)
     context = {'note': note}
     return render(request, 'notes/note_details.html', context=context)
 
-
+@login_required
 def note_delete(request, pk):
     note = get_object_or_404(Notes, pk=pk)
     note.delete()
     return redirect(reverse('notes'))
 
+@login_required
 def note_edit(request, pk):
     note = get_object_or_404(Notes, pk=pk)
     form = NoteForm(instance=note)
@@ -67,7 +74,7 @@ def note_edit(request, pk):
     context = {'form': form}
     return render(request, 'notes/note_edit.html', context=context)
 
-
+@login_required
 def tasks(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
@@ -82,6 +89,7 @@ def tasks(request):
     context = {'tasks': tasks, 'form': form}
     return render(request, 'tasks/tasks.html', context=context)
 
+@login_required
 def task_create(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
@@ -94,6 +102,7 @@ def task_create(request):
         form = TaskForm()
     return render(request, 'tasks/task_create.html', {'form': form})
 
+@login_required
 def task_edit(request, pk):
     task = get_object_or_404(Tasks, pk=pk)
     form = TaskForm(instance=task)
@@ -105,6 +114,7 @@ def task_edit(request, pk):
     context = {'form': form}
     return render(request, 'tasks/task_edit.html', context=context)
 
+@login_required
 def task_delete(request, pk):
     task = get_object_or_404(Tasks, pk=pk)
     task.delete()
