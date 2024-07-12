@@ -45,8 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'crispy_bootstrap5',
-    'lms',  
-    'core'
+    'lms'
 ]
 
 RUN_MIGRATIONS_ON_START = True
