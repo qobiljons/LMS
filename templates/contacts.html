@@ -6,14 +6,29 @@
 {% block content %}
 <div class="container-fluid d-flex justify-content-center vh-50">
     <div class="col-md-8">
+        <div class="card shadow mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Welcome!</h5>
+                <p class="card-text">I am really happy that you are using the app. Your feedback is important to me, and I would be delighted if you could share your thoughts on how to improve the app and make it more useful for you.</p>
+            </div>
+        </div>
         <div class="card shadow">
             <div class="card-body">
-                <h5 class="card-title mb-4">Contact the owner</h5>
+                <h5 class="card-title mb-4">Contact the Owner</h5>
                 <form method="post">
                     {% csrf_token %}
-                    {{ form|crispy }}
+                    <div class="row">
+                        <div class="col">
+                            {{ form.name|as_crispy_field }}
+                        </div>
+                        <div class="col">
+                            {{ form.email|as_crispy_field }}
+                        </div>
+                    </div>
+                    {{ form.message|as_crispy_field }}
                     <button type="submit" class="btn btn-info">Send</button>
                 </form>
+            </div>
         </div>
     </div>
 </div>

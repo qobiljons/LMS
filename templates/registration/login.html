@@ -14,12 +14,15 @@
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
+                        {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}">
+                        {% endif %}
                         {% if form.non_field_errors %}
-                        <div class="alert alert-danger">
-                            {% for error in form.non_field_errors %}
-                            {{ error }}
-                            {% endfor %}
-                        </div>
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
                         {% endif %}
                         <div class="mb-3">
                             {{ form.username|as_crispy_field }}

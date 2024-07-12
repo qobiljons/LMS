@@ -14,9 +14,9 @@ from .forms import NoteForm, TaskForm, SearchForm, ContactForm
 
 #Dashboard
 
-
-class HomePageView(TemplateView):
-    template_name = 'index.html'
+@login_required
+def home(request):
+    return render(request, 'index.html')
 
 
 #Notes App Views
