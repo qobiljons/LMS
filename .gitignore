@@ -63,8 +63,6 @@ db.sqlite3-journal
 
 # Media and static files
 media/
-staticfiles/
-static/
 
 # Jupyter Notebook
 .ipynb_checkpoints
