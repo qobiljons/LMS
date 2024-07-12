@@ -92,11 +92,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "dft7bh9c3rj28d",
-        'USER': "u2rrgrr8nf2qii",
-        'PASSWORD': "p1d6a91a116b576b7a2c39e49860cc60ee87f3b70ee7fc12c5ff866de7c718620",
-        'HOST': "c1i13pt05ja4ag.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
-        'PORT': 5432,
+        'NAME': 'defaultdb',  # Database name
+        'USER': 'avnadmin',   # Database user
+        'PASSWORD': 'AVNS_ECdStPudvotQYrfyMPs',  # Database password
+        'HOST': 'pg-2e26136-qobiljons.i.aivencloud.com',  # Host address
+        'PORT': '28015',      # Port number
+        'OPTIONS': {
+            'sslmode': 'require',
+            'sslrootcert': '/certs/ca-certificate.pem',  # Specify the CA certificate path
+        }
     }
 }
 

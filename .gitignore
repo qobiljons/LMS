@@ -100,3 +100,6 @@ ehthumbs.db
 
 
 .env
+
+ca-certificate.pem
+config/certs/ca-certificate.pem 
