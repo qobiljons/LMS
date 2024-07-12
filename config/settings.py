@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import os
-import django_heroku
+import os, django_heroku
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -141,7 +140,10 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Configure Django-Heroku.
 django_heroku.settings(locals())
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
