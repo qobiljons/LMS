@@ -6,8 +6,8 @@ class CoreConfig(AppConfig):
     name = 'core'
     label = 'core'
 
-    def ready(self):
-        from django.conf import settings
-        if settings.RUN_MIGRATIONS_ON_START:
-            call_command('makemigrations', interactive=False, verbosity=0)
-            call_command('migrate', interactive=False, verbosity=0)
+    # def ready(self):
+    #     from django.conf import settings
+    #     if settings.RUN_MIGRATIONS_ON_START:
+    #         call_command('makemigrations', interactive=False, verbosity=0)
+    #         call_command('migrate', interactive=False, verbosity=0)
