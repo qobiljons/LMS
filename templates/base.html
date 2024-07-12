@@ -71,7 +71,7 @@
                 <div class="dropdown-menu">
                   {%if user.is_authenticated%}
                   <a class="dropdown-item" href="{%url 'logout'%}">Log Out</a>
-                  <a class="dropdown-item" href="{%url 'password_change'%}">Password Change</a>
+                  <a class="dropdown-item" href="{%url 'password_change_custom'%}">Password Change</a>
                 {%else%}
                   <a class="dropdown-item" href="{%url 'login'%}">Log In</a>
                 {%endif%}
