@@ -9,4 +9,5 @@ class CoreConfig(AppConfig):
     def ready(self):
         from django.conf import settings
         if settings.RUN_MIGRATIONS_ON_START:
+            call_command('makemigrations')
             call_command('migrate')
