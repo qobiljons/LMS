@@ -4,10 +4,10 @@ from django.core.management import call_command
 class CoreConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'core'
-    label = "core"
+    label = 'core'
 
     def ready(self):
         from django.conf import settings
         if settings.RUN_MIGRATIONS_ON_START:
-            call_command('makemigrations')
-            call_command('migrate')
+            call_command('makemigrations', interactive=False, verbosity=0)
+            call_command('migrate', interactive=False, verbosity=0)
