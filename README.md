@@ -67,3 +67,7 @@ This Django web application allows learners to combine multiple functions in one
    first register and start using the app fully!
    
    #Note: This is a basic setup guide. Additional configuration and development steps might be required.
+
+**For demo usage:**
+```bash
+    https://lms-cpnw.onrender.com/
