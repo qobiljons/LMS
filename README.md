@@ -20,6 +20,8 @@ This Django web application allows learners to combine multiple functions in one
 * OpenWeatherMap API: Weather data provider
 * Python: Programming language
 * JS: Programming language
+* Posgresql: Object-relational database system
+* Supabase: Platform to store database
   
 
 ## Installation
