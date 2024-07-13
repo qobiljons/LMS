@@ -6,7 +6,7 @@ This Django web application allows learners to combine multiple functions in one
 
 * **Task Management:** CRUD operations with tasks 
 * **Note Management:** CRUD operations with notes
-* **Dictionary: ** Get the description of english words
+* **Dictionary:** Get the description of english words
 * **Wikipedia** Get Wikipedia Pages
 * **You Tube** Get videos from you tube api
 * **Books** Get books from google api
@@ -43,16 +43,14 @@ This Django web application allows learners to combine multiple functions in one
 3. **Set Up Environment Variables**
    Create a file named .env in the root directory. Add the following lines, replacing placeholders:
    ```bash
-  DJANGO_SECRET_KEY==your_secret_key
-  DEBUG = set_debug_mode
-  API_KEY_BOOKS=your_api_key
-  # DB_KEYS
-  
-  DB_NAME=your_db_name
-  DB_USER=your_db_user
-  DB_PASSWORD=your_databse_password
-  DB_HOST=your_host
-  DB_PORT = port_number
+    DJANGO_SECRET_KEY==your_secret_key
+    DEBUG = set_debug_mode
+    API_KEY_BOOKS=your_api_key
+    DB_NAME=your_db_name
+    DB_USER=your_db_user
+    DB_PASSWORD=your_databse_password
+    DB_HOST=your_host
+    DB_PORT = port_number
 
 4. **Run Migrations**
     ```bash
